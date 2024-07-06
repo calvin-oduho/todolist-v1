@@ -13,9 +13,7 @@ const items = ["Buy Food", "Cook Food", "Eat Food"];
 const workItems = [];
 
 app.get("/", (req, res) => {
-
    const day = file.getDate();
-
     res.render("list", {
         listTitle: day,
         newListItems: items
@@ -45,5 +43,5 @@ app.get("/about", (req, res) => {
 });
 
 app.listen(port, () => { 
-    console.log(`Live on => localhost:${port}/`);
+    console.log(`Listening on => localhost:${port}/`);
 });
