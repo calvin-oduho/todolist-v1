@@ -1,21 +1,20 @@
 
 import express from "express";
 import bodyParser from "body-parser";
-import date from "./date.cjs";
+import file from "./file.cjs";
 
 const app = express();
-const port = 3002;
-const items = ["Buy food", "Cook food", "Eat food"];
-const workItems = [];
-
-
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+const port = 3002;
+const items = ["Buy Food", "Cook Food", "Eat Food"];
+const workItems = [];
+
 app.get("/", (req, res) => {
 
-   const day = date.getDate();
+   const day = file.getDate();
 
     res.render("list", {
         listTitle: day,
@@ -26,10 +25,10 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     const item = req.body.newItem;
     if (req.body.list === "Work") {
-        workItems.push(item);
+        workItems.push(file.capitalize(item));
         res.redirect("/work");
     } else {
-        items.push(item);
+        items.push(file.capitalize(item));
         res.redirect("/");
     }
 });
@@ -46,5 +45,5 @@ app.get("/about", (req, res) => {
 });
 
 app.listen(port, () => { 
-    console.log(`Port ${port}: Listening...`);
+    console.log(`Live on => localhost:${port}/`);
 });
